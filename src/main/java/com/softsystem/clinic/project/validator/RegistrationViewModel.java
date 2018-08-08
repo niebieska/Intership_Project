@@ -34,7 +34,7 @@ public class RegistrationViewModel {
 	private String pat_Sex;
 	
 	@NotBlank(message = "{NotEmpty.message}")
-	@Size(min = 8, message = "{Size.email}")
+	@Size(min = 8, message = "{Size.password}")
 	private String pat_Passhash;
 	
 	@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-+]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{Email.invalidEmail}")
