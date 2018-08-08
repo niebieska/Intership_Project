@@ -1,5 +1,6 @@
 package com.softsystem.clinic.project.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,4 +40,17 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return (List<Schedule>) scheduleRepository.findAll();
 	}
 
+	
+	@Override
+	public List<Schedule> findOne(String code) {
+		List<Schedule> list =  (List<Schedule>) scheduleRepository.findAll();
+		
+		List<Schedule> newList = new ArrayList<Schedule>();
+		
+		for( Schedule sh : list)
+		{
+			if(sh.getDoctorCode().getId().equals(code)) newList.add(sh);
+		}
+		return newList;
+	}
 }

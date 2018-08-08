@@ -14,4 +14,6 @@ public interface ScheduleService {
 	
 	public List<Schedule> listOfSchedules(); 
 	
+	public List<Schedule> findOne(String code); 
+
 }
