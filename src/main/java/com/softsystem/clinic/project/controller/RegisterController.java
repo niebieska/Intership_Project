@@ -25,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softsystem.clinic.project.model.utils.PasswordEncoder;
+import com.softsystem.clinic.project.model.utils.DateParser;
 import com.softsystem.clinic.project.services.RegistrationService;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
 
@@ -53,12 +54,8 @@ public class RegisterController {
         if (result.hasErrors()) {
             return new ModelAndView("/register","model",model);
         }
-        System.out.println(model.getPat_Dob());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse(model.getPat_Dob());
-
-        model.setPat_Dob(new java.sql.Timestamp((date).getTime()).toString());
-        System.out.println(model.getPat_Dob());
+  
+        model.setPat_Dob(DateParser.StringToDate(model.getPat_Dob()).toString());
         registrationService.registration(model);
         
         List<String> infoMessages = new ArrayList<>();
@@ -68,5 +65,4 @@ public class RegisterController {
 		
 		 return new ModelAndView("redirect:/login");
 	}
-	
 }

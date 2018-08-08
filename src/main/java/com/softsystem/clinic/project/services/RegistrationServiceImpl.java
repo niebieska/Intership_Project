@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.softsystem.clinic.project.dao.PatientRepository;
 import com.softsystem.clinic.project.model.Patient;
+import com.softsystem.clinic.project.model.utils.DateParser;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
 
 
@@ -28,11 +29,8 @@ public class RegistrationServiceImpl implements RegistrationService{
 	        patient.setPat_Sex(registrationViewModel.getPat_Sex());
 	        patient.setPat_Passhash(registrationViewModel.getPat_Passhash());
 	        patient.setPat_Email(registrationViewModel.getPat_Email());
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-	        Date date;
 			try {
-				date = dateFormat.parse(registrationViewModel.getPat_Dob());
-				patient.setPat_Dob(new java.sql.Timestamp((date).getTime()));
+				patient.setPat_Dob(DateParser.StringToDate(registrationViewModel.getPat_Dob()));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
