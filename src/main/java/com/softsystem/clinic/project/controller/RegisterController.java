@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.BindingResult;
@@ -18,13 +19,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.softsystem.clinic.project.model.utils.PasswordEncoder;
+import com.softsystem.clinic.project.services.RegistrationService;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
 
 @org.springframework.stereotype.Controller 
-public class RegisterController {
-
+public class RegisterController {	
+	
+	@Autowired
+	RegistrationService registrationService;
+	
+	@InitBinder     
+	public void initBinder(WebDataBinder binder){
+	     binder.registerCustomEditor(       Date.class,     
+	                         new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));   
+	}
 	@RequestMapping(value="/register",method =RequestMethod.GET)
 	public ModelAndView showRegistrationPage() {
 		
@@ -34,11 +47,12 @@ public class RegisterController {
 	@RequestMapping(value ="/register",method = RequestMethod.POST)
     public ModelAndView registerPost(@Valid @ModelAttribute ("model")RegistrationViewModel model, final BindingResult result,
                                      final RedirectAttributes redirectAttributes){
-		
-		
+	
+		model.setPat_Passhash(PasswordEncoder.encodePass(model.getPat_Passhash()));
         if (result.hasErrors()) {
             return new ModelAndView("/register","model",model);
         }
+        registrationService.registration(model);
         
         List<String> infoMessages = new ArrayList<>();
         infoMessages.add("Registration was successful! Now you can log in.");
