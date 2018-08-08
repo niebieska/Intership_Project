@@ -16,42 +16,42 @@ import javax.validation.constraints.NotNull;
 import org.springframework.lang.NonNull;
 
 @Entity
-@Table(name="NOTE")
+@Table(name = "NOTE")
 public class Note {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
-	@Column(name="NOTE_ID")
+	@Column(name = "NOTE_ID")
 	private int id;
-	
+
 	@NonNull
-	@Column(name="NOTE_DOC_ID")
+	@Column(name = "NOTE_DOC_ID")
 	private String note_Doc_Id;
-	
+
 	@NonNull
-	@Column(name="NOTE_DATE")
+	@Column(name = "NOTE_DATE")
 	private Date note_Date;
-	
+
 	@NonNull
-	@Column(name="NOTE_BODY")
+	@Column(name = "NOTE_BODY")
 	private String note_Body;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PAT_ID")
 	@NotNull
 	private Patient patientId;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "VIS_ID")
 	@NotNull
 	private Visit visitId;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SCH_ID")
 	@NotNull
 	private Schedule scheduleId;
-	
+
 	public Note() {
 		super();
 	}
@@ -88,10 +88,34 @@ public class Note {
 		this.note_Body = note_Body;
 	}
 
+	public Patient getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Patient patientId) {
+		this.patientId = patientId;
+	}
+
+	public Visit getVisitId() {
+		return visitId;
+	}
+
+	public void setVisitId(Visit visitId) {
+		this.visitId = visitId;
+	}
+
+	public Schedule getScheduleId() {
+		return scheduleId;
+	}
+
+	public void setScheduleId(Schedule scheduleId) {
+		this.scheduleId = scheduleId;
+	}
+	
 	@Override
 	public String toString() {
 		return "Note [id=" + id + ", note_Doc_Id=" + note_Doc_Id + ", note_Date=" + note_Date + ", note_Body="
 				+ note_Body + "]";
 	}
-	
+
 }

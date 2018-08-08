@@ -123,6 +123,30 @@ public class Visit {
 	public void setVis_Confirmation(boolean vis_Confirmation) {
 		this.vis_Confirmation = vis_Confirmation;
 	}
+	
+	public Reception getReceptionId() {
+		return receptionId;
+	}
+
+	public void setReceptionId(Reception receptionId) {
+		this.receptionId = receptionId;
+	}
+
+	public Patient getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Patient patientId) {
+		this.patientId = patientId;
+	}
+
+	public Schedule getScheduleId() {
+		return scheduleId;
+	}
+
+	public void setScheduleId(Schedule scheduleId) {
+		this.scheduleId = scheduleId;
+	}
 
 	@Override
 	public String toString() {

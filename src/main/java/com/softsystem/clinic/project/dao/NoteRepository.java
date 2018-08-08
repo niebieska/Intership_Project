@@ -3,9 +3,9 @@ package com.softsystem.clinic.project.dao;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.softsystem.clinic.project.model.Patient;
+import com.softsystem.clinic.project.model.Note;
 
 @Repository
-public interface PatientRepository extends CrudRepository<Patient,Integer> {
+public interface NoteRepository extends CrudRepository<Note, Integer> {
 
 }

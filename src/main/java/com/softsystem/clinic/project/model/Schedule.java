@@ -1,17 +1,18 @@
 package com.softsystem.clinic.project.model;
 
-import java.time.LocalTime;
 import java.util.Date;
-import java.util.Timer;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.lang.NonNull;
 
@@ -24,20 +25,21 @@ public class Schedule {
 	@NonNull
 	@Column(name="SCH_ID")
 	private int id;
-	
+
 	@NonNull
-	@Column(name="SCH_DAY")
-	private Date sch_Day;
-	
-	@NonNull
-	@Column(name="SCH_STARTHOUR")
-	@Temporal(TemporalType.TIME)
+	@Column(name="SCH_STARTWORK")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date sch_Starthour;
 	
 	@NonNull
-	@Column(name="SCH_ENDHOUR")
-	@Temporal(TemporalType.TIME)
+	@Column(name="SCH_ENDWORK")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date sch_Endhour;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DOC_CODE")
+	@NotNull
+	private Doctor doctorCode;
 
 	public Schedule() {
 		super();
@@ -49,14 +51,6 @@ public class Schedule {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Date getSch_Day() {
-		return sch_Day;
-	}
-
-	public void setSch_Day(Date sch_Day) {
-		this.sch_Day = sch_Day;
 	}
 
 	public Date getSch_Starthour() {
@@ -75,11 +69,18 @@ public class Schedule {
 		this.sch_Endhour = sch_Endhour;
 	}
 
+	public Doctor getDoctorCode() {
+		return doctorCode;
+	}
+
+	public void setDoctorCode(Doctor doctorCode) {
+		this.doctorCode = doctorCode;
+	}
+
 	@Override
 	public String toString() {
-		return "Schedule [id=" + id + ", sch_Day=" + sch_Day + ", sch_Starthour=" + sch_Starthour + ", sch_Endhour="
-				+ sch_Endhour + "]";
-	}
-	
+		return "Schedule [id=" + id + ", sch_Starthour=" + sch_Starthour + ", sch_Endhour=" + sch_Endhour
+				+ ", doctorCode=" + doctorCode + "]";
+	}	
 	
 }
