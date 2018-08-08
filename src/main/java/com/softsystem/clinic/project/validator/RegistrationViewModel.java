@@ -32,7 +32,7 @@ public class RegistrationViewModel {
 	private String pat_Lname;
 	
 	@NotBlank(message = "{NotEmpty.message}")
-	private Date pat_Dob;
+	private String pat_Dob;
 
 	@NotBlank(message = "{NotEmpty.message}")
 	private String pat_Sex;
@@ -101,16 +101,14 @@ public class RegistrationViewModel {
 		this.pat_Email = pat_Email;
 	}
 
-	public Date getPat_Dob() {
+	public String getPat_Dob() {
 		return pat_Dob;
 	}
 
-	public void setPat_Dob(Date pat_Dob) {
+	public void setPat_Dob(String pat_Dob) {
 		this.pat_Dob = pat_Dob;
 	}
 
-	
 
-	
 	
 }

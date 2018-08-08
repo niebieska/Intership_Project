@@ -1,9 +1,10 @@
 package com.softsystem.clinic.project.controller;
 
-import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -36,7 +37,7 @@ public class RegisterController {
 	@InitBinder     
 	public void initBinder(WebDataBinder binder){
 	     binder.registerCustomEditor(       Date.class,     
-	                         new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));   
+	                         new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));   
 	}
 	@RequestMapping(value="/register",method =RequestMethod.GET)
 	public ModelAndView showRegistrationPage() {
@@ -46,12 +47,18 @@ public class RegisterController {
 	
 	@RequestMapping(value ="/register",method = RequestMethod.POST)
     public ModelAndView registerPost(@Valid @ModelAttribute ("model")RegistrationViewModel model, final BindingResult result,
-                                     final RedirectAttributes redirectAttributes){
+                                     final RedirectAttributes redirectAttributes) throws ParseException{
 	
 		model.setPat_Passhash(PasswordEncoder.encodePass(model.getPat_Passhash()));
         if (result.hasErrors()) {
             return new ModelAndView("/register","model",model);
         }
+        System.out.println(model.getPat_Dob());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(model.getPat_Dob());
+
+        model.setPat_Dob(new java.sql.Timestamp((date).getTime()).toString());
+        System.out.println(model.getPat_Dob());
         registrationService.registration(model);
         
         List<String> infoMessages = new ArrayList<>();

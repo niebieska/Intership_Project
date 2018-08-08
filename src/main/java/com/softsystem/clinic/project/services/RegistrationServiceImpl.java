@@ -1,5 +1,9 @@
 package com.softsystem.clinic.project.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +28,15 @@ public class RegistrationServiceImpl implements RegistrationService{
 	        patient.setPat_Sex(registrationViewModel.getPat_Sex());
 	        patient.setPat_Passhash(registrationViewModel.getPat_Passhash());
 	        patient.setPat_Email(registrationViewModel.getPat_Email());
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+	        Date date;
+			try {
+				date = dateFormat.parse(registrationViewModel.getPat_Dob());
+				patient.setPat_Dob(new java.sql.Timestamp((date).getTime()));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        
 	        patientRepository.save(patient);
 
