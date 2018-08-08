@@ -4,7 +4,11 @@ import java.util.Date;
 
 import org.hibernate.validator.constraints.*;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.*;
 
 
@@ -28,13 +32,13 @@ public class RegistrationViewModel {
 	private String pat_Lname;
 	
 	@NotBlank(message = "{NotEmpty.message}")
-	private Date pat_Dob;
+	private String pat_Dob;
 
 	@NotBlank(message = "{NotEmpty.message}")
 	private String pat_Sex;
 	
 	@NotBlank(message = "{NotEmpty.message}")
-	@Size(min = 8, message = "{Size.email}")
+	@Size(min = 8, message = "{Size.password}")
 	private String pat_Passhash;
 	
 	@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-+]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{Email.invalidEmail}")
@@ -97,13 +101,14 @@ public class RegistrationViewModel {
 		this.pat_Email = pat_Email;
 	}
 
-	public Date getPat_Dob() {
+	public String getPat_Dob() {
 		return pat_Dob;
 	}
 
-	public void setPat_Dob(Date pat_Dob) {
+	public void setPat_Dob(String pat_Dob) {
 		this.pat_Dob = pat_Dob;
 	}
+
 	
 	
 }

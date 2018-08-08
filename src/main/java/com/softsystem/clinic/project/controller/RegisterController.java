@@ -35,12 +35,13 @@ public class RegisterController {
     public ModelAndView registerPost(@Valid @ModelAttribute ("model")RegistrationViewModel model, final BindingResult result,
                                      final RedirectAttributes redirectAttributes){
 		
+		
         if (result.hasErrors()) {
             return new ModelAndView("/register","model",model);
         }
         
         List<String> infoMessages = new ArrayList<>();
-        infoMessages.add("Rejestracja powiodła się! Teraz możesz sie zalogować.");
+        infoMessages.add("Registration was successful! Now you can log in.");
 
         redirectAttributes.addFlashAttribute("infos", infoMessages);
 		
