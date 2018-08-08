@@ -45,7 +45,7 @@ public class RegisterController {
 
         redirectAttributes.addFlashAttribute("infos", infoMessages);
 		
-		 return new ModelAndView("redirect:/welcome");
+		 return new ModelAndView("redirect:/login");
 	}
 	
 }

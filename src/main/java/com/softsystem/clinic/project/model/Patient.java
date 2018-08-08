@@ -46,7 +46,6 @@ public class Patient {
 	@Column(name="PAT_SEX")
 	private String pat_Sex;
 	
-	@NonNull
 	@Column(name="PAT_CONFIRMATION")
 	private boolean pat_Confirmation;
 	
@@ -58,7 +57,6 @@ public class Patient {
 	@Column(name="PAT_EMAIL")
 	private String pat_Email;
 	
-	@NonNull
 	@Column(name="PAT_PHONE")
 	private int pat_Phone;
 
