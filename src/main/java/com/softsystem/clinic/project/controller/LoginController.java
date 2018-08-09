@@ -3,6 +3,7 @@ package com.softsystem.clinic.project.controller;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,12 @@ public class LoginController {
 
 		if (currentPaientService.isAuthenticated()) {
 			// if logged in it passes to the patient page
+			System.out.println("zalogowany");
 			modelAndView.setViewName("/patient");
 
 		} else {
 			// return to log in
+			System.out.println("niezalogowany");
 			modelAndView.setViewName("redirect:/login");
 		}
 
@@ -71,4 +74,12 @@ public class LoginController {
 
 		return new ModelAndView("redirect:/patient");
 	}
+	
+	@GetMapping(value = "/logout")
+    public String logout(HttpSession session) {
+        currentPaientService.logOut();
+        session.invalidate();
+
+        return "redirect:/login";
+    }
 }
