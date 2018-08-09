@@ -31,7 +31,7 @@ public class PatientServiceImpl implements PatientService{
 		Iterable<Patient> findAll = patientRepository.findAll();
 		
 		patient.setPat_Dob(pat_Dob);
-		patient.setPat_Email(pat_Email);
+		patient.setPatEmail(pat_Email);
 		patient.setPat_Fname(pat_Fname);
 		patient.setPat_Lname(pat_Lname);
 		patient.setPat_Mname(pat_Mname);
@@ -54,14 +54,13 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public List<Patient> listOfPatients() {
-		List<Patient> patients = new ArrayList<>();
-		patientRepository.findAll().forEach(patients::add);
-		return patients;
-	}
-	
-	@Override
-	public Optional<Patient> findOnePatient(int id) {
-		return patientRepository.findById(id);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
+	public Optional<Patient> findOnePatient(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
