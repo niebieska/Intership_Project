@@ -9,11 +9,9 @@ public class LoginViewModel {
 	
 	@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-+]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{Email.invalidEmail}")
     @Size(max = 150, message = "{Size.email}")
-	@NotEmpty(message = "{NotEmpty.message}")
     public String pat_Email;
 
 	@Size(min = 8, message = "{Size.password}")
-    @NotEmpty(message = "{NotEmpty.message}")
     public String pat_Passhash;
 
 	public String getPat_Email() {

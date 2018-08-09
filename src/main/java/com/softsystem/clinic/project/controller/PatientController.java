@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.softsystem.clinic.project.dao.PatientRepository;
 import com.softsystem.clinic.project.model.Patient;
 import com.softsystem.clinic.project.services.PatientServiceImpl;
+import com.softsystem.clinic.project.validator.LoginViewModel;
+import com.softsystem.clinic.project.validator.RegistrationViewModel;
 
 @RestController
 public class PatientController {
@@ -30,6 +33,12 @@ public class PatientController {
 	private PatientRepository patientRepository;
 	
 
+	@GetMapping(value="/patient")
+	public ModelAndView showPatientPage() {
+		
+		return new ModelAndView("/patient", "model", new LoginViewModel());
+	}
+	
 	@GetMapping(value = "/allpatients")
 	public List<Patient> getAllPatients() {
 		return patientServiceImpl.listOfPatients();

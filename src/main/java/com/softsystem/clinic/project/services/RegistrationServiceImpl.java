@@ -28,7 +28,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 	        patient.setPat_Lname(registrationViewModel.getPat_Lname());
 	        patient.setPat_Sex(registrationViewModel.getPat_Sex());
 	        patient.setPat_Passhash(registrationViewModel.getPat_Passhash());
-	        patient.setPat_Email(registrationViewModel.getPat_Email());
+	        patient.setPatEmail(registrationViewModel.getPat_Email());
 			try {
 				patient.setPat_Dob(DateParser.StringToDate(registrationViewModel.getPat_Dob()));
 			} catch (ParseException e) {

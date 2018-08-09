@@ -14,6 +14,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ public class RegisterController {
 	     binder.registerCustomEditor(       Date.class,     
 	                         new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));   
 	}
-	@RequestMapping(value="/register",method =RequestMethod.GET)
+	@GetMapping(value="/register")
 	public ModelAndView showRegistrationPage() {
 		
 		return new ModelAndView("/register", "model", new RegistrationViewModel());

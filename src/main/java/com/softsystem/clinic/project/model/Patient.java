@@ -55,7 +55,7 @@ public class Patient {
 	
 	@NonNull
 	@Column(name="PAT_EMAIL")
-	private String pat_Email;
+	private String patEmail;
 	
 	@Column(name="PAT_PHONE")
 	private int pat_Phone;
@@ -136,12 +136,13 @@ public class Patient {
 		this.pat_Passhash = pat_Passhash;
 	}
 
-	public String getPat_Email() {
-		return pat_Email;
+	
+	public String getPatEmail() {
+		return patEmail;
 	}
 
-	public void setPat_Email(String pat_Email) {
-		this.pat_Email = pat_Email;
+	public void setPatEmail(String patEmail) {
+		this.patEmail = patEmail;
 	}
 
 	public int getPat_Phone() {
@@ -156,7 +157,7 @@ public class Patient {
 	public String toString() {
 		return "Patient [id=" + id + ", pat_Mrn=" + pat_Mrn + ", pat_Fname=" + pat_Fname + ", pat_Mname=" + pat_Mname
 				+ ", pat_Lname=" + pat_Lname + ", pat_Dob=" + pat_Dob + ", pat_Sex=" + pat_Sex + ", pat_Confirmation="
-				+ pat_Confirmation + ", pat_Passhash=" + pat_Passhash + ", pat_Email=" + pat_Email + ", pat_Phone="
+				+ pat_Confirmation + ", pat_Passhash=" + pat_Passhash + ", pat_Email=" + patEmail + ", pat_Phone="
 				+ pat_Phone + "]";
 	}
 	
