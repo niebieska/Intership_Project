@@ -24,6 +24,7 @@ public class RegistrationViewModel {
 	@Size(max = 32, message = "{Size.name}")
 	private String pat_Fname;
 	
+	@NotBlank(message = "{NotEmpty.message}")
 	@Size(max = 32, message = "{Size.name}")
 	private String pat_Mname;
 	

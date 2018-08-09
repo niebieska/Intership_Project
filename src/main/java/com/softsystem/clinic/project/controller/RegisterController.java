@@ -26,6 +26,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softsystem.clinic.project.model.utils.PasswordEncoder;
+import com.softsystem.clinic.project.dao.PatientDao;
 import com.softsystem.clinic.project.model.utils.DateParser;
 import com.softsystem.clinic.project.services.RegistrationService;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
@@ -35,6 +36,9 @@ public class RegisterController {
 	
 	@Autowired
 	RegistrationService registrationService;
+	
+	@Autowired
+	PatientDao patientDao;
 	
 	@InitBinder     
 	public void initBinder(WebDataBinder binder){
@@ -51,6 +55,15 @@ public class RegisterController {
     public ModelAndView registerPost(@Valid @ModelAttribute ("model")RegistrationViewModel model, final BindingResult result,
                                      final RedirectAttributes redirectAttributes) throws ParseException{
 	
+		
+		if (!result.hasErrors()) {
+			if(patientDao.countPatientMRN(model.getPat_Mrn())) {
+				result.reject("error.MrnExist", "MRN number already exists.");
+			}
+			if(patientDao.countPatientEmail(model.getPat_Email())) {
+				result.reject("error.MrnExist", "E-mail is already exists.");
+			}
+		}
 		model.setPat_Passhash(PasswordEncoder.encodePass(model.getPat_Passhash()));
         if (result.hasErrors()) {
             return new ModelAndView("/register","model",model);
