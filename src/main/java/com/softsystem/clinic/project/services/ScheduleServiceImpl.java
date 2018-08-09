@@ -1,5 +1,8 @@
 package com.softsystem.clinic.project.services;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,9 +50,14 @@ public class ScheduleServiceImpl implements ScheduleService{
 		
 		List<Schedule> newList = new ArrayList<Schedule>();
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyy-mm-dd hh:mm:ss");
+
+		Date now = new Date();
+		System.out.println(now.toString());
 		for( Schedule sh : list)
 		{
-			if(sh.getDoctorCode().getId().equals(code)) newList.add(sh);
+			System.out.println(sh.getSch_Starthour().toString());
+			if(sh.getDoctorCode().getId().equals(code) && (sh.getSch_Endhour().after(now)) ) newList.add(sh);
 		}
 		return newList;
 	}
