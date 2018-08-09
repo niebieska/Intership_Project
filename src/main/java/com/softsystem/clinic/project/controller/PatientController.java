@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.softsystem.clinic.project.dao.PatientRepository;
 import com.softsystem.clinic.project.model.Patient;
+import com.softsystem.clinic.project.services.CurrentPatientService;
 import com.softsystem.clinic.project.services.PatientServiceImpl;
 import com.softsystem.clinic.project.validator.LoginViewModel;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
@@ -32,11 +36,33 @@ public class PatientController {
 	@Autowired
 	private PatientRepository patientRepository;
 	
+	
+
+	@Inject
+	CurrentPatientService currentPaientService;
+
+	
 
 	@GetMapping(value="/patient")
-	public ModelAndView showPatientPage() {
+	public ModelAndView showPatientPage(Model model) {
+		ModelAndView modelAndView = new ModelAndView();
 		
-		return new ModelAndView("/patient", "model", new LoginViewModel());
+		if (currentPaientService.isAuthenticated()) {
+			// if logged in it passes to the patient page
+			System.out.println("zalogowany");
+			modelAndView.setViewName("/patient");
+
+		} else {
+			// return to log in
+			System.out.println("niezalogowany");
+		 modelAndView.setViewName("redirect:/login");
+		}
+		
+		Patient patient = currentPaientService.getPatient();
+		
+		 model.addAttribute("patient",patient);
+		
+		return modelAndView;
 	}
 	
 	@GetMapping(value = "/allpatients")
