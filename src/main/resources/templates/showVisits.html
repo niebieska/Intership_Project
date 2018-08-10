@@ -30,9 +30,10 @@
 
 		<div class="collapse navbar-collapse" id="mainNavigation">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="#">Patients</a>
+				<li class="nav-item"><a class="nav-link" href="/showPatients">Patients</a>
 				</li>
-				<li class="nav-item active"><a class="nav-link" href="/showVisits">Visits
+				<li class="nav-item active"><a class="nav-link" href="/showVisit">Visits
+					
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">History</a></li>
 				<li class="nav-item"><a class="nav-link" href="/register">Register</a>
@@ -77,18 +78,7 @@
 								<th>Phone</th>
 							</tr>
 						</thead>
-						<tr th:each="patient : ${patientList }">
-							<td th:text="${patient.pat_Mrn}"></td>
-							<td th:text="${patient.pat_Fname}"></td>
-							<td th:text="${patient.pat_Mname}"></td>
-							<td th:text="${patient.pat_Lname}"></td>
-							<td th:text="${patient.pat_Dob}"></td>
-							<td th:text="${patient.pat_Sex}"></td>
-							<td th:text="${patient.pat_Confirmation}"></td>
-							<td th:text="${patient.patEmail}"></td>
-							<td th:text="${patient.pat_Phone}"></td>
-
-						</tr>
+						
 
 					</table>
 
