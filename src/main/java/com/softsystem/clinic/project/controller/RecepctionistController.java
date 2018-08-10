@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.softsystem.clinic.project.dao.ReceptionRepository;
+import com.softsystem.clinic.project.model.Reception;
 import com.softsystem.clinic.project.services.CurrentPatientService;
 import com.softsystem.clinic.project.services.CurrentReceptionistService;
 
@@ -34,7 +35,9 @@ public class RecepctionistController {
 			System.out.println("niezalogowany");
 			modelAndView.setViewName("redirect:/login");
 		}
-		 
+		
+		Reception reception = currentRecetionService.getReception();
+		model.addAttribute("reception",reception);
 	
 		 return modelAndView;
 	}

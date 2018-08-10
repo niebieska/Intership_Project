@@ -31,13 +31,12 @@ public class LoginController {
 
 	@Inject
 	CurrentPatientService currentPaientService;
-	
+
 	@Autowired
 	ReceptionRepository receptionReposiory;
-	
+
 	@Inject
 	CurrentReceptionistService currentRecetionService;
-	
 
 	@GetMapping(value = "/login")
 	public ModelAndView login(@ModelAttribute("infos") final ArrayList<String> infos,
@@ -49,11 +48,12 @@ public class LoginController {
 			// if logged in it passes to the patient page
 			System.out.println("zalogowany");
 			modelAndView.setViewName("/patient");
-
-		}else if(currentRecetionService.isAuthenticated()) {
-			modelAndView.setViewName("/receptionist");
 		}
-		else {
+
+		else if (currentRecetionService.isAuthenticated()) {
+			modelAndView.setViewName("/receptionist");
+
+		} else {
 			// return to log in
 			System.out.println("niezalogowany");
 			modelAndView.setViewName("redirect:/login");
@@ -66,37 +66,56 @@ public class LoginController {
 		return new ModelAndView("/login", "model", new LoginViewModel());
 	}
 
+	@SuppressWarnings("unused")
 	@PostMapping(value = "/login")
 	public ModelAndView loginPost(@Valid @ModelAttribute("model") LoginViewModel model, final BindingResult result) {
 
 		Patient patient = patientRepository.findByPatEmail(model.getPat_Email());
-		//Reception reception = receptionReposiory.findById(id);
-		
-		
-		
 
-		if (!result.hasErrors()) {
-			if (patient == null) {
-				result.reject("error.loginError", "Invalid login or password.");
-			} else if (!PasswordEncoder.checkPassword(model.getPat_Passhash(), patient.getPat_Passhash())) {
-				result.reject("error.loginError", "Invalid login or password.");
+		Reception reception = receptionReposiory.findByRecEmail(model.getPat_Email());
+
+		if (reception != null) {
+			if (!result.hasErrors()) {
+				if (reception == null) {
+					result.reject("error.loginError", "Invalid login or password.");
+				} else if (!model.getPat_Passhash().equals(reception.getRecPasshash())) {
+					result.reject("error.loginError", "Invalid login or password.");
+				}
 			}
 
-		}
-		if (result.hasErrors()) {
-			return new ModelAndView("/login", "model", model);
+			if (result.hasErrors()) {
+				return new ModelAndView("/login", "model", model);
+			}
+
+			currentRecetionService.setReception(reception);
+			return new ModelAndView("redirect:/receptionist");
+		} else {
+
+			System.out.println("pacjent");
+			if (!result.hasErrors()) {
+				if (patient == null) {
+					result.reject("error.loginError", "Invalid login or password.");
+				} else if (!PasswordEncoder.checkPassword(model.getPat_Passhash(), patient.getPat_Passhash())) {
+					result.reject("error.loginError", "Invalid login or password.");
+				}
+			}
+
+			if (result.hasErrors()) {
+				return new ModelAndView("/login", "model", model);
+			}
+
+			currentPaientService.setPatient(patient);
+
+			return new ModelAndView("redirect:/patient");
 		}
 
-		currentPaientService.setPatient(patient);
-
-		return new ModelAndView("redirect:/patient");
 	}
-	
-	@GetMapping(value = "/logout")
-    public String logout(HttpSession session) {
-        currentPaientService.logOut();
-        session.invalidate();
 
-        return "redirect:/login";
-    }
+	@GetMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		currentPaientService.logOut();
+		session.invalidate();
+
+		return "redirect:/login";
+	}
 }

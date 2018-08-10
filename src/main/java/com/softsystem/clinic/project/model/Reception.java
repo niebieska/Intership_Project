@@ -31,6 +31,14 @@ public class Reception {
 	@Column(name="REC_PHONEENUM")
 	private int rec_PhoneEnum;
 	
+	@NonNull
+	@Column(name="REC_PASSHASH")
+	private String recPasshash;
+	
+	@NonNull
+	@Column(name="REC_EMAIL")
+	private String recEmail;
+	
 	public Reception() {
 		super();
 	}
@@ -65,6 +73,23 @@ public class Reception {
 
 	public void setRec_PhoneEnum(int rec_PhoneEnum) {
 		this.rec_PhoneEnum = rec_PhoneEnum;
+	}
+
+	
+	public String getRecPasshash() {
+		return recPasshash;
+	}
+
+	public void setRecPasshash(String recPasshash) {
+		this.recPasshash = recPasshash;
+	}
+
+	public String getRecEmail() {
+		return recEmail;
+	}
+
+	public void setRecEmail(String recEmail) {
+		this.recEmail = recEmail;
 	}
 
 	@Override

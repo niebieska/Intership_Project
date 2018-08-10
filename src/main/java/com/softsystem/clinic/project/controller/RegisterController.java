@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softsystem.clinic.project.model.utils.PasswordEncoder;
 import com.softsystem.clinic.project.dao.PatientDao;
+import com.softsystem.clinic.project.dao.ReceptionRepository;
+import com.softsystem.clinic.project.model.Reception;
 import com.softsystem.clinic.project.model.utils.DateParser;
+import com.softsystem.clinic.project.services.CurrentReceptionistService;
 import com.softsystem.clinic.project.services.RegistrationService;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
 
@@ -39,6 +43,12 @@ public class RegisterController {
 	
 	@Autowired
 	PatientDao patientDao;
+	
+	@Inject
+	CurrentReceptionistService currentRecetionistServise;
+	
+	@Autowired
+	ReceptionRepository receptionRepository;
 	
 	@InitBinder     
 	public void initBinder(WebDataBinder binder){
@@ -56,6 +66,11 @@ public class RegisterController {
                                      final RedirectAttributes redirectAttributes) throws ParseException{
 	
 		
+		Reception reception = receptionRepository.findByRecEmail(currentRecetionistServise.getReception().getRecEmail());
+		
+		if(reception != null) {
+			return new ModelAndView("redirect:/receptionist");
+		}
 		if (!result.hasErrors()) {
 			if(patientDao.countPatientMRN(model.getPat_Mrn())) {
 				result.reject("error.MrnExist", "MRN number already exists.");
