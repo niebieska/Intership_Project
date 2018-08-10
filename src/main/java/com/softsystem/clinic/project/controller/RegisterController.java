@@ -35,63 +35,74 @@ import com.softsystem.clinic.project.services.CurrentReceptionistService;
 import com.softsystem.clinic.project.services.RegistrationService;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
 
-@org.springframework.stereotype.Controller 
-public class RegisterController {	
-	
+@org.springframework.stereotype.Controller
+public class RegisterController {
+
 	@Autowired
 	RegistrationService registrationService;
-	
+
 	@Autowired
 	PatientDao patientDao;
-	
+
 	@Inject
 	CurrentReceptionistService currentRecetionistServise;
-	
+
 	@Autowired
 	ReceptionRepository receptionRepository;
-	
-	@InitBinder     
-	public void initBinder(WebDataBinder binder){
-	     binder.registerCustomEditor(       Date.class,     
-	                         new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));   
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
 	}
-	@GetMapping(value="/register")
+
+	@GetMapping(value = "/register")
 	public ModelAndView showRegistrationPage() {
-		
+
 		return new ModelAndView("/register", "model", new RegistrationViewModel());
 	}
+
+	/**
+	 * @param model
+	 * @param result
+	 * @param redirectAttributes
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView registerPost(@Valid @ModelAttribute("model") RegistrationViewModel model,
+			final BindingResult result, final RedirectAttributes redirectAttributes) throws ParseException {
+
+		String urlReception = "";
 	
-	@RequestMapping(value ="/register",method = RequestMethod.POST)
-    public ModelAndView registerPost(@Valid @ModelAttribute ("model")RegistrationViewModel model, final BindingResult result,
-                                     final RedirectAttributes redirectAttributes) throws ParseException{
-	
-		
-		Reception reception = receptionRepository.findByRecEmail(currentRecetionistServise.getReception().getRecEmail());
-		
-		if(reception != null) {
-			return new ModelAndView("redirect:/receptionist");
+
+		if (currentRecetionistServise.isAuthenticated()) {
+
+			urlReception = "redirect:/receptionist";
+		} else {
+			urlReception = "redirect:/login";
 		}
+		
 		if (!result.hasErrors()) {
-			if(patientDao.countPatientMRN(model.getPat_Mrn())) {
+			if (patientDao.countPatientMRN(model.getPat_Mrn())) {
 				result.reject("error.MrnExist", "MRN number already exists.");
 			}
-			if(patientDao.countPatientEmail(model.getPat_Email())) {
+			if (patientDao.countPatientEmail(model.getPat_Email())) {
 				result.reject("error.MrnExist", "E-mail is already exists.");
 			}
 		}
 		model.setPat_Passhash(PasswordEncoder.encodePass(model.getPat_Passhash()));
-        if (result.hasErrors()) {
-            return new ModelAndView("/register","model",model);
-        }
-  
-        model.setPat_Dob(DateParser.StringToDate(model.getPat_Dob()).toString());
-        registrationService.registration(model);
-        
-        List<String> infoMessages = new ArrayList<>();
-        infoMessages.add("Registration was successful! Now you can log in.");
+		if (result.hasErrors()) {
+			return new ModelAndView("/register", "model", model);
+		}
 
-        redirectAttributes.addFlashAttribute("infos", infoMessages);
-		
-		 return new ModelAndView("redirect:/login");
+		model.setPat_Dob(DateParser.StringToDate(model.getPat_Dob()).toString());
+		registrationService.registration(model);
+
+		List<String> infoMessages = new ArrayList<>();
+		infoMessages.add("Registration was successful! Now you can log in.");
+
+		redirectAttributes.addFlashAttribute("infos", infoMessages);
+
+		return new ModelAndView(urlReception);
 	}
 }

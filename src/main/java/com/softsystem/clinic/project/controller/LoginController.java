@@ -36,7 +36,7 @@ public class LoginController {
 	ReceptionRepository receptionReposiory;
 
 	@Inject
-	CurrentReceptionistService currentRecetionService;
+	CurrentReceptionistService currentReceptionService;
 
 	@GetMapping(value = "/login")
 	public ModelAndView login(@ModelAttribute("infos") final ArrayList<String> infos,
@@ -50,7 +50,7 @@ public class LoginController {
 			modelAndView.setViewName("/patient");
 		}
 
-		else if (currentRecetionService.isAuthenticated()) {
+		else if (currentReceptionService.isAuthenticated()) {
 			modelAndView.setViewName("/receptionist");
 
 		} else {
@@ -87,7 +87,7 @@ public class LoginController {
 				return new ModelAndView("/login", "model", model);
 			}
 
-			currentRecetionService.setReception(reception);
+			currentReceptionService.setReception(reception);
 			return new ModelAndView("redirect:/receptionist");
 		} else {
 
