@@ -9,5 +9,6 @@ public interface PatientRepository extends CrudRepository<Patient,Integer> {
 
 	public Patient findById(int id);
 	public Patient findByPatEmail(String pat_Email);
+	
 
 }
