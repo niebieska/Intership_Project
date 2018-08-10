@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.softsystem.clinic.project.dao.PatientRepository;
+import com.softsystem.clinic.project.dao.ReceptionRepository;
 import com.softsystem.clinic.project.model.Patient;
+import com.softsystem.clinic.project.model.Reception;
 import com.softsystem.clinic.project.model.utils.PasswordEncoder;
 import com.softsystem.clinic.project.services.CurrentPatientService;
+import com.softsystem.clinic.project.services.CurrentReceptionistService;
 import com.softsystem.clinic.project.validator.LoginViewModel;
 
 @Controller
@@ -28,6 +31,13 @@ public class LoginController {
 
 	@Inject
 	CurrentPatientService currentPaientService;
+	
+	@Autowired
+	ReceptionRepository receptionReposiory;
+	
+	@Inject
+	CurrentReceptionistService currentRecetionService;
+	
 
 	@GetMapping(value = "/login")
 	public ModelAndView login(@ModelAttribute("infos") final ArrayList<String> infos,
@@ -40,7 +50,10 @@ public class LoginController {
 			System.out.println("zalogowany");
 			modelAndView.setViewName("/patient");
 
-		} else {
+		}else if(currentRecetionService.isAuthenticated()) {
+			modelAndView.setViewName("/receptionist");
+		}
+		else {
 			// return to log in
 			System.out.println("niezalogowany");
 			modelAndView.setViewName("redirect:/login");
@@ -57,6 +70,10 @@ public class LoginController {
 	public ModelAndView loginPost(@Valid @ModelAttribute("model") LoginViewModel model, final BindingResult result) {
 
 		Patient patient = patientRepository.findByPatEmail(model.getPat_Email());
+		//Reception reception = receptionReposiory.findById(id);
+		
+		
+		
 
 		if (!result.hasErrors()) {
 			if (patient == null) {
