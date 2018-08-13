@@ -28,10 +28,6 @@ public class ShowVisitController {
 		if (currentReceptionService.isAuthenticated()) {
 			// if logged in it passes to the patient page
 			System.out.println("zalogowany");
-			List<Visit> findAllPerformedVisitsForAllPatients = visitRepository.findAllPerformedVisitsForAllPatients();
-		model.addAttribute("findAllPerformedVisitsForAllPatients", findAllPerformedVisitsForAllPatients);
-		
-		
 			modelAndView.setViewName("/showVisits");
 
 		} else {
@@ -40,7 +36,7 @@ public class ShowVisitController {
 			modelAndView.setViewName("redirect:/login");
 		}
 
-		//List<Visit> visitList = (List<Visit>) visitRepository.findAllPerformedVisitsForAllPatients();
+		//List<Visit> visitList = (List<Visit>) visitRepository.findAllVis();
 		
 		//for(Visit visit: visitList) {
 			//System.out.println(visit.getVis_Room());
@@ -53,8 +49,6 @@ public class ShowVisitController {
 
 		//model.addAttribute("visitList", visitList);
 		model.addAttribute("reception", reception);
-		
-
 
 		return modelAndView;
 	}

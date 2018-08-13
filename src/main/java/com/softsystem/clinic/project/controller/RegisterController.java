@@ -99,7 +99,6 @@ public class RegisterController {
 
 		model.setPat_Dob(DateParser.StringToDate(model.getPat_Dob()).toString());
 		registrationService.registration(model);
-		
 
 		String infoMessages = "Registration was successful! Now you can log in.";
 

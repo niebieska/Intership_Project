@@ -35,10 +35,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			String pat_Phone = registrationViewModel.getPat_Phone();
-			Integer pat_Phone_Parsed=Integer.parseInt(pat_Phone);
-	        patient.setPat_Phone(pat_Phone_Parsed);
+	        
 	        patientRepository.save(patient);
 
 	        

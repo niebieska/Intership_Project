@@ -99,14 +99,7 @@
 							th:if="${#fields.hasErrors('pat_Passhash')}"
 							th:errors="*{pat_Passhash}"></span>
 					</div>
-					<div class="form-group">
-						<span class="text-warning"><h6>
-								<label for="exampleInputPhone">Phone</label>
-							</h6></span> <input type="tel" class="form-control" id="exampleInputPhone"
-							placeholder="123456789" th:field="*{pat_Phone}" /> <span
-							class="text-danger" th:if="${#fields.hasErrors('pat_Phone')}"
-							th:errors="*{pat_Phone}"></span>
-					</div>
+
 
 					<button class="btn btn-warning text-white top-button">REGISTER
 					</button>
