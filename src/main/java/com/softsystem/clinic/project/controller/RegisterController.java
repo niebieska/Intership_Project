@@ -37,7 +37,7 @@ import com.softsystem.clinic.project.services.CurrentReceptionistService;
 import com.softsystem.clinic.project.services.RegistrationService;
 import com.softsystem.clinic.project.validator.RegistrationViewModel;
 
-@RestController
+@Controller
 public class RegisterController {
 
 	@Autowired
@@ -80,6 +80,7 @@ public class RegisterController {
 		if (currentReceptionistServise.isAuthenticated()) {
 
 			urlReception = "redirect:/receptionist";
+			System.out.println(currentReceptionistServise.getReception());
 		} else {
 			urlReception = "redirect:/login";
 		}

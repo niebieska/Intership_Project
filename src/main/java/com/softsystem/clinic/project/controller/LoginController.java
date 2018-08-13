@@ -3,7 +3,6 @@ package com.softsystem.clinic.project.controller;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.softsystem.clinic.project.dao.PatientRepository;
 import com.softsystem.clinic.project.dao.ReceptionRepository;
@@ -66,7 +64,7 @@ public class LoginController {
 		return new ModelAndView("/login", "model", new LoginViewModel());
 	}
 
-	@SuppressWarnings("unused")
+
 	@PostMapping(value = "/login")
 	public ModelAndView loginPost(@Valid @ModelAttribute("model") LoginViewModel model, final BindingResult result) {
 
@@ -106,4 +104,5 @@ public class LoginController {
 		}
 
 	}
+	
 }
