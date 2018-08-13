@@ -14,12 +14,6 @@
 <body>
 	<!-- Navbar -->
 	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-		<button class="navbar-toggler navbar-toggler-right" type="button"
-			data-toggle="collapse" data-target="#mainNavigation"
-			aria-controls="mainNavigation" aria-expanded="false"
-			aria-label="Pokaż lub ukryj nawigację">
-			<span class="navbar-toggler-icon"></span>
-		</button>
 		<a class="navbar-brand" onclick="openLeftMenu()"> <img
 			src="images/hamburger.png" width="52" height="52"
 			class="d-inline-block align-top rounded" alt="idź na start">
@@ -49,13 +43,7 @@
 			</ul>
 		</div>
 	</nav>
-	<div class="container text-white">
-		<div class="notification note-second">
-			<!-- ramka -->
-			<div class="col-md-9 note-content"></div>
-		</div>
-	</div>
-
+	
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
@@ -67,12 +55,7 @@
 								<th>First Name</th>
 								<th>Middle Name</th>
 								<th>Last Name</th>
-								<th>Date of Birth</th>
-								<th>Sex</th>
 								<th>Confirmation</th>
-								<th>E-mail</th>
-								<th>Phone</th>
-							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="patient : ${patientList }">
@@ -80,11 +63,7 @@
 								<td th:text="${patient.pat_Fname}"></td>
 								<td th:text="${patient.pat_Mname}"></td>
 								<td th:text="${patient.pat_Lname}"></td>
-								<td th:text="${patient.pat_Dob}"></td>
-								<td th:text="${patient.pat_Sex}"></td>
 								<td th:text="${patient.pat_Confirmation}"></td>
-								<td th:text="${patient.patEmail}"></td>
-								<td th:text="${patient.pat_Phone}"></td>
 							</tr>
 						</tbody>
 					</table>
