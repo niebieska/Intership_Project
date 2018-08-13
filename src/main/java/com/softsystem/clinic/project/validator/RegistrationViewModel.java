@@ -46,6 +46,10 @@ public class RegistrationViewModel {
     @Size(max = 150, message = "{Size.email}")
 	private String pat_Email;
 	
+	@Pattern(regexp="[0-9]{3}[0-9]{3}[0-9]{3}", message="{Phone.invalidPhone}") 
+	@NotBlank(message = "{NotEmpty.message}") 
+	private String pat_Phone; 
+	
 	public String getPat_Mrn() {
 		return pat_Mrn;
 	}
@@ -110,6 +114,12 @@ public class RegistrationViewModel {
 		this.pat_Dob = pat_Dob;
 	}
 
-
+	public String getPat_Phone() { 
+		 return pat_Phone; 
+	} 
+		 
+	public void setPat_Phone(String pat_Phone) { 
+		 this.pat_Phone = pat_Phone; 
+	 } 
 	
 }
