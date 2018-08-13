@@ -1,21 +1,18 @@
 package com.softsystem.clinic.project.controller;
 
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.softsystem.clinic.project.dao.PatientRepository;
 import com.softsystem.clinic.project.model.Patient;
 import com.softsystem.clinic.project.model.Reception;
 import com.softsystem.clinic.project.services.CurrentReceptionistService;
 
-@Controller
+@RestController
 public class ShowPatientsController {
 
 	@Autowired

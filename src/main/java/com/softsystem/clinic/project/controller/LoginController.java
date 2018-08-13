@@ -12,8 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.softsystem.clinic.project.dao.PatientRepository;
 import com.softsystem.clinic.project.dao.ReceptionRepository;
 import com.softsystem.clinic.project.model.Patient;
@@ -30,7 +30,7 @@ public class LoginController {
 	PatientRepository patientRepository;
 
 	@Inject
-	CurrentPatientService currentPaientService;
+	CurrentPatientService currentPatientService;
 
 	@Autowired
 	ReceptionRepository receptionReposiory;
@@ -44,7 +44,7 @@ public class LoginController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		if (currentPaientService.isAuthenticated()) {
+		if (currentPatientService.isAuthenticated()) {
 			// if logged in it passes to the patient page
 			System.out.println("zalogowany");
 			modelAndView.setViewName("/patient");
@@ -76,11 +76,9 @@ public class LoginController {
 
 		if (reception != null) {
 			if (!result.hasErrors()) {
-				if (reception == null) {
+				if ((reception == null) || (!model.getPat_Passhash().equals(reception.getRecPasshash()))) {
 					result.reject("error.loginError", "Invalid login or password.");
-				} else if (!model.getPat_Passhash().equals(reception.getRecPasshash())) {
-					result.reject("error.loginError", "Invalid login or password.");
-				}
+				} 
 			}
 
 			if (result.hasErrors()) {
@@ -92,30 +90,20 @@ public class LoginController {
 		} else {
 
 			System.out.println("pacjent");
-			if (!result.hasErrors()) {
+			if ((!result.hasErrors()) || (!PasswordEncoder.checkPassword(model.getPat_Passhash(), patient.getPat_Passhash()))) {
 				if (patient == null) {
 					result.reject("error.loginError", "Invalid login or password.");
-				} else if (!PasswordEncoder.checkPassword(model.getPat_Passhash(), patient.getPat_Passhash())) {
-					result.reject("error.loginError", "Invalid login or password.");
-				}
+				} 
 			}
 
 			if (result.hasErrors()) {
 				return new ModelAndView("/login", "model", model);
 			}
 
-			currentPaientService.setPatient(patient);
+			currentPatientService.setPatient(patient);
 
 			return new ModelAndView("redirect:/patient");
 		}
 
-	}
-
-	@GetMapping(value = "/logout")
-	public String logout(HttpSession session) {
-		currentPaientService.logOut();
-		session.invalidate();
-
-		return "redirect:/login";
 	}
 }

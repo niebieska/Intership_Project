@@ -40,8 +40,25 @@ public class ReceptionServiceImpl implements ReceptionService{
 
 	@Override
 	public List<Reception> listOfReceptions() {
-		receptionRepository.findAll();
-		return null;
+		return (List<Reception>) receptionRepository.findAll();
+	}
+	
+	@Override
+	public Reception findById(int id) {
+		Reception rec=new Reception();
+		try {
+			rec = receptionRepository.findById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rec;
+	}
+
+
+	@Override
+	public Reception findByRecEmail(String recEmail) {
+		Reception rec=receptionRepository.findByRecEmail(recEmail);
+		return rec;
 	}
 
 }

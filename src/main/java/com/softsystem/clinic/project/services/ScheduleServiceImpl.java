@@ -1,18 +1,12 @@
 package com.softsystem.clinic.project.services;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.softsystem.clinic.project.dao.ScheduleRepository;
 import com.softsystem.clinic.project.model.Doctor;
-import com.softsystem.clinic.project.model.Reception;
 import com.softsystem.clinic.project.model.Schedule;
 
 @Service
@@ -50,14 +44,15 @@ public class ScheduleServiceImpl implements ScheduleService{
 		
 		List<Schedule> newList = new ArrayList<Schedule>();
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyy-mm-dd hh:mm:ss");
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyy-mm-dd hh:mm:ss");
 
 		Date now = new Date();
 		System.out.println(now.toString());
 		for( Schedule sh : list)
 		{
 			System.out.println(sh.getSch_Starthour().toString());
-			if(sh.getDoctorCode().getId().equals(code) && (sh.getSch_Endhour().after(now)) ) newList.add(sh);
+			if(sh.getDoctorCode().getId().equals(code) && (sh.getSch_Endhour().after(now)) ) 
+				newList.add(sh);
 		}
 		return newList;
 	}

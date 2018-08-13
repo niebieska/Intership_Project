@@ -1,4 +1,4 @@
-package com.softsystem.clinic.project.controller;
+/*package com.softsystem.clinic.project.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -17,4 +17,4 @@ public class PasswordController {
 		return "Hello world";
 	}
 	
-}
+}*/

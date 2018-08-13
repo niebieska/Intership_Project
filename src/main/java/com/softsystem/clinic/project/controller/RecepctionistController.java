@@ -2,24 +2,20 @@ package com.softsystem.clinic.project.controller;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.softsystem.clinic.project.dao.ReceptionRepository;
 import com.softsystem.clinic.project.model.Reception;
-import com.softsystem.clinic.project.services.CurrentPatientService;
 import com.softsystem.clinic.project.services.CurrentReceptionistService;
 
-@Controller
+@RestController
 public class RecepctionistController {
 		
 	
 	@Inject
-	CurrentReceptionistService currentRecetionService;
+	CurrentReceptionistService currentReceptionService;
 	
 	
 	@GetMapping(value ="/receptionist")
@@ -27,7 +23,7 @@ public class RecepctionistController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		if(currentRecetionService.isAuthenticated()) {
+		if(currentReceptionService.isAuthenticated()) {
 			modelAndView.setViewName("/receptionist");
 		}
 		else {
@@ -36,7 +32,7 @@ public class RecepctionistController {
 			modelAndView.setViewName("redirect:/login");
 		}
 		
-		Reception reception = currentRecetionService.getReception();
+		Reception reception = currentReceptionService.getReception();
 		model.addAttribute("reception",reception);
 	
 		 return modelAndView;

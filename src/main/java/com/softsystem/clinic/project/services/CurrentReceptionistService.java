@@ -4,19 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-
-import com.softsystem.clinic.project.dao.PatientRepository;
 import com.softsystem.clinic.project.dao.ReceptionRepository;
-import com.softsystem.clinic.project.model.Patient;
 import com.softsystem.clinic.project.model.Reception;
 
 
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CurrentReceptionistService {
-
-	
-	
 	
 	private Reception reception;
 	
