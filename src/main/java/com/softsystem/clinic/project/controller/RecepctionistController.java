@@ -2,11 +2,14 @@ package com.softsystem.clinic.project.controller;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.softsystem.clinic.project.dao.VisitRepository;
 import com.softsystem.clinic.project.model.Reception;
 import com.softsystem.clinic.project.services.CurrentReceptionistService;
 
@@ -17,6 +20,8 @@ public class RecepctionistController {
 	@Inject
 	CurrentReceptionistService currentReceptionService;
 	
+	@Autowired
+	private VisitRepository visitRepository;
 	
 	@GetMapping(value ="/receptionist")
 	public ModelAndView showReceptionPage(Model model) {

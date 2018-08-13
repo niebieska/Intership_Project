@@ -50,7 +50,6 @@ public class LoginController {
 
 		else if (currentReceptionService.isAuthenticated()) {
 			modelAndView.setViewName("/receptionist");
-
 		} else {
 			// return to log in
 			System.out.println("niezalogowany");
@@ -74,7 +73,7 @@ public class LoginController {
 
 		if (reception != null) {
 			if (!result.hasErrors()) {
-				if ((reception == null) || (!model.getPat_Passhash().equals(reception.getRecPasshash()))) {
+				if ((!model.getPat_Passhash().equals(reception.getRecPasshash()))) {
 					result.reject("error.loginError", "Invalid login or password.");
 				} 
 			}

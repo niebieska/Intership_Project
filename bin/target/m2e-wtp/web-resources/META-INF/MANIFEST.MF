@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: clinic_project
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: lptaszek
+Implementation-Vendor-Id: com.softsystem
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/clinic.project
+Created-By: Maven Integration for Eclipse
+
