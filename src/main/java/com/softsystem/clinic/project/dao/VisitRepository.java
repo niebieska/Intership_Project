@@ -1,5 +1,7 @@
 package com.softsystem.clinic.project.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +17,7 @@ public interface VisitRepository extends CrudRepository<Visit, Integer> {
 	public Reception findAllIncomingVisitsForSinglePatient(@Param("patientId")String patientId);
 	
 	@Query("select v from Visit v where v.vis_Reg_Date<CURRENT_DATE()")
-	public Reception findAllPerformedVisitsForAllPatients();
+	public List<Visit> findAllPerformedVisitsForAllPatients();
 	
 	@Query("select v from Visit v where v.patientId=:patientId")
 	public Reception findAllVisitsForSinglePatient(@Param("patientId")String patientId);

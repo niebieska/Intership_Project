@@ -27,6 +27,8 @@ public class ShowVisitController {
 
 		if (currentReceptionService.isAuthenticated()) {
 			// if logged in it passes to the patient page
+		    List<Visit> findAllPerformedVisitsForAllPatients = (List<Visit>) visitRepository.findAllPerformedVisitsForAllPatients(); 
+		    model.addAttribute("findAllPerformedVisitsForAllPatients", findAllPerformedVisitsForAllPatients); 
 			System.out.println("zalogowany");
 			modelAndView.setViewName("/showVisits");
 
