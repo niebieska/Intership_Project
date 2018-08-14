@@ -20,6 +20,9 @@ public interface VisitRepository extends CrudRepository<Visit, Integer> {
 	@Query("select v from Visit v where v.vis_Reg_Date<CURRENT_DATE()")
 	public List<Visit> findAllPerformedVisitsForAllPatients();
 	
+	@Query("select v from Visit v where v.vis_Reg_Date>CURRENT_DATE()")
+	public List<Visit> findAllIncomingVisitsForAllPatients();
+	
 	@Query("select v from Visit v where v.patientId=:patientId")
 	public List<Visit> findAllVisitsForSinglePatient(@Param("patientId")int patientId);
 	

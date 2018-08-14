@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Receptionist panel</title>
+<title>History Visit</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
 	integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -32,9 +32,8 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" href="/showPatients">Patients</a>
 				</li>
-				<li class="nav-item"><a class="nav-link"
-					href="/showVisits">Visits </a></li>
-				<li class="nav-item"><a class="nav-link" href="/allHistoryVisit">History</a></li>
+				<li class="nav-item"><a class="nav-link"href="/showVisits">Visits </a></li>
+				<li class="nav-item"><a class="nav-link" href="#">History</a></li>
 				<li class="nav-item"><a class="nav-link" href="/register">Register</a>
 				</li>
 			</ul>
@@ -45,8 +44,8 @@
 					class="nav-link dropdown-toggle" href="#" id="userMenu"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<img class="rounded-circle" width="20" height="20"
-						src="images/avatar.png" alt="Imię i nazwisko"> <text
-							th:text="${reception.rec_FName}+' '+${reception.rec_LName}" />
+						src="images/avatar.png" alt="Imię i nazwisko"> 
+							 <text th:text="${reception.rec_FName} + ' '+${reception.rec_LName}">
 				</a>
 					<div class="dropdown-menu dropdown-menu-right"
 						aria-labelledby="userMenu">
@@ -56,9 +55,9 @@
 			</ul>
 		</div>
 	</nav>
-    <br />
+        <br />
         <center>
-     <h2 style="color:white;">Upcomming Visits</h2>   
+     <h2 style="color:white;">History Visits</h2>   
      </center>
 	<div class="py-5">
 		<div class="container">
@@ -72,12 +71,11 @@
 								<th>Date of Dis</th>
 								<th>Room</th>
 								<th>Confirmation</th>
-								<th>Patient</th>
-								<th>Schedule Id</th>
+								<th>Visit date</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="visit : ${findAllIncomingVisitsForAllPatients}">
+							<tr th:each="visit : ${findAllPerformedVisitsForAllPatients}">
 								<td th:text="${visit.vis_Presc}"></td>
 								<td th:text="${visit.vis_Reg_Date}"></td>
 								<td th:text="${visit.vis_Dis_Date}"></td>
@@ -88,18 +86,20 @@
 								<td th:text="${visit.scheduleId.sch_Starthour}"></td>
 							</tr>
 						</tbody>
+						
 
 					</table>
 
-				</div>
 			</div>
 		</div>
+	</div>
 
 
 
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="js/jquery-3.2.1.slim.min.js"></script>
-		<script src="js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/jquery-3.2.1.slim.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
