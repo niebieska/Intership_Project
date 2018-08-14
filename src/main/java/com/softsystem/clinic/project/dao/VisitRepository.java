@@ -13,6 +13,9 @@ import com.softsystem.clinic.project.model.Visit;
 
 @Repository
 public interface VisitRepository extends CrudRepository<Visit, Integer> {
+	
+	
+	public Visit findById(int id);
 
 	@Query("select v from Visit v where v.vis_Reg_Date>CURRENT_DATE() and v.patientId=:patientId")
 	public List<Visit> findAllIncomingVisitsForSinglePatient(@Param("patientId")Patient patientId);
@@ -24,7 +27,7 @@ public interface VisitRepository extends CrudRepository<Visit, Integer> {
 	public List<Visit> findAllIncomingVisitsForAllPatients();
 	
 	@Query("select v from Visit v where v.patientId=:patientId")
-	public List<Visit> findAllVisitsForSinglePatient(@Param("patientId")int patientId);
+	public List<Visit> findAllVisitsForSinglePatient(@Param("patientId")Patient patientId);
 	
 	
 	@Query("select v from Visit v where v.vis_Reg_Date<CURRENT_DATE() and v.patientId= :patientId")

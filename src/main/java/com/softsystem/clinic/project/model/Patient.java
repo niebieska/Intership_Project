@@ -57,7 +57,6 @@ public class Patient {
 	@Column(name="PAT_EMAIL")
 	private String patEmail;
 	
-	@NonNull
 	@Column(name="PAT_PHONE")
 	private int pat_Phone;
 

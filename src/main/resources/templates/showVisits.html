@@ -64,6 +64,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 border-dark">
+				<form action="#" th:action="@{/showVisits}" th:object="${model2}"
+					 role="form" method="post">
 					<table class="table table-striped" style="background-color: white">
 						<thead>
 							<tr>
@@ -71,9 +73,9 @@
 								<th>Date of Registration</th>
 								<th>Date of Dis</th>
 								<th>Room</th>
-								<th>Confirmation</th>
 								<th>Patient</th>
-								<th>Schedule Id</th>
+								<th>Date</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -82,15 +84,23 @@
 								<td th:text="${visit.vis_Reg_Date}"></td>
 								<td th:text="${visit.vis_Dis_Date}"></td>
 								<td th:text="${visit.vis_Room}"></td>
-								<td th:text="${visit.vis_Confirmation}"></td>
-								<td
-									th:text="${visit.patientId.pat_Fname+' '+visit.patientId.pat_Lname}"></td>
+								
+								<td th:text="${visit.patientId.pat_Fname+' '+visit.patientId.pat_Lname}"></td>
 								<td th:text="${visit.scheduleId.sch_Starthour}"></td>
+								<td th:text="${visit.vis_Confirmation}"></td>
+								<td>
+					<select th:field="*{pat_Confirmation}" class="form-control">
+							<option value="true">Confirmed</option>
+							<option value="false">Not confirmed</option>
+						</select>
+					</td>
 							</tr>
 						</tbody>
 
 					</table>
-
+						<button class="btn btn-warning text-white top-button">Confirm
+					</button>
+				</form>
 				</div>
 			</div>
 		</div>
