@@ -47,8 +47,42 @@
                 </ul>
             </div>
         </nav>
-        
-        
+        <br />
+        <center>
+     <h2 style="color:white;">Upcoming Visits</h2>   
+     </center>
+        <div class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 border-dark">
+					<table class="table table-striped" style="background-color: white">
+						<thead>
+							<tr>
+								<th>Prescription</th>
+								<th>Date of Registration</th>
+								<th>Date of Dis</th>
+								<th>Room</th>
+								<th>Confirmation</th>
+								<th>Visit date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="visit : ${findAllIncomingVisitsForSinglePatient}">
+								<td th:text="${visit.vis_Presc}"></td>
+								<td th:text="${visit.vis_Reg_Date}"></td>
+								<td th:text="${visit.vis_Dis_Date}"></td>
+								<td th:text="${visit.vis_Room}"></td>
+								<td th:text="${visit.vis_Confirmation}"></td>
+								<td th:text="${visit.scheduleId.sch_Starthour}"></td>
+							</tr>
+						</tbody>
+						
+
+					</table>
+
+			</div>
+		</div>
+	</div>
 
    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

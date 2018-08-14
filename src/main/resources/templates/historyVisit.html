@@ -30,7 +30,7 @@
 
 		<div class="collapse navbar-collapse" id="mainNavigation">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/patient">My visits <span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
@@ -56,8 +56,10 @@
 			</ul>
 		</div>
 	</nav>
-        
-<h1>history visit panel</h1>
+        <br />
+        <center>
+     <h2 style="color:white;">History Visit</h2>   
+     </center>
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
@@ -65,17 +67,24 @@
 					<table class="table table-striped" style="background-color: white">
 						<thead>
 							<tr>
-								<th>MRN number</th>
-								<th>First Name</th>
-								<th>Middle Name</th>
-								<th>Last Name</th>
-								<th>Date of Birth</th>
-								<th>Sex</th>
+								<th>Prescription</th>
+								<th>Date of Registration</th>
+								<th>Date of Dis</th>
+								<th>Room</th>
 								<th>Confirmation</th>
-								<th>E-mail</th>
-								<th>Phone</th>
+								<th>Visit date</th>
 							</tr>
 						</thead>
+						<tbody>
+							<tr th:each="visit : ${findAllPerformedVisitsForSinglePatient}">
+								<td th:text="${visit.vis_Presc}"></td>
+								<td th:text="${visit.vis_Reg_Date}"></td>
+								<td th:text="${visit.vis_Dis_Date}"></td>
+								<td th:text="${visit.vis_Room}"></td>
+								<td th:text="${visit.vis_Confirmation}"></td>
+								<td th:text="${visit.scheduleId.sch_Starthour}"></td>
+							</tr>
+						</tbody>
 						
 
 					</table>

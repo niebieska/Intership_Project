@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.softsystem.clinic.project.dao.PatientRepository;
+import com.softsystem.clinic.project.dao.VisitRepository;
 import com.softsystem.clinic.project.model.Patient;
+import com.softsystem.clinic.project.model.Visit;
 import com.softsystem.clinic.project.services.CurrentPatientService;
 import com.softsystem.clinic.project.services.PatientServiceImpl;
 
@@ -35,6 +37,9 @@ public class PatientController {
 	
 	@Inject
 	CurrentPatientService currentPaientService;
+	
+	@Autowired
+	private VisitRepository visitRepository;
 
 	@GetMapping(value="/patient")
 	public ModelAndView showPatientPage(Model model) {
@@ -52,6 +57,9 @@ public class PatientController {
 		}
 		
 		Patient patient = currentPaientService.getPatient();
+		
+		List<Visit> findAllIncomingVisitsForSinglePatient = visitRepository.findAllIncomingVisitsForSinglePatient(patient);
+		model.addAttribute("findAllIncomingVisitsForSinglePatient", findAllIncomingVisitsForSinglePatient);
 		
 		 model.addAttribute("patient",patient);
 		
