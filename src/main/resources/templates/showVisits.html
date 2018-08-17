@@ -35,7 +35,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="/showVisits">Visits </a></li>
 				<li class="nav-item"><a class="nav-link" href="/allHistoryVisit">History</a></li>
-				<li class="nav-item"><a class="nav-link" href="/register">Register</a>
+				<li class="nav-item"><a class="nav-link" href="/registerForReception">Register</a>
 				</li>
 			</ul>
 
@@ -66,6 +66,10 @@
 				<div class="col-md-12 border-dark">
 				<form action="#" th:action="@{/showVisits}" th:object="${model2}"
 					 role="form" method="post">
+					 
+					 <center>
+     					<h4 style="color:white;">If you want to confirm or not confirm a visit you have to pick status from dropdown list, mark the checkbox and then press the button for save changes. Actual status you can see in column "status"</h4>   
+    				 </center>
 					<table class="table table-striped" style="background-color: white">
 						<thead>
 							<tr>
@@ -76,39 +80,41 @@
 								<th>Patient</th>
 								<th>Date</th>
 								<th>Status</th>
+								<th></th>
+								<th style="width:150px;">Mark to update</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="visit : ${findAllIncomingVisitsForAllPatients}">
 								<td th:text="${visit.vis_Presc}"></td>
-								<td th:text="${visit.vis_Reg_Date}"></td>
-								<td th:text="${visit.vis_Dis_Date}"></td>
+								<td th:text="${visit.vis_Reg_Date}" style="width:500px;"></td>
+								<td th:text="${visit.vis_Dis_Date}" style="width:500px;"></td>
 								<td th:text="${visit.vis_Room}"></td>
 								
 								<td th:text="${visit.patientId.pat_Fname+' '+visit.patientId.pat_Lname}"></td>
 								<td th:text="${visit.scheduleId.sch_Starthour}"></td>
 								<td th:text="${visit.vis_Confirmation}"></td>
 								<td>
-					<select th:field="*{pat_Confirmation}" class="form-control">
-							<option value="true">Confirmed</option>
+					<select th:field="*{pat_Confirmation}" class="form-control" style="width:130px;">
+							<option value="true" >Confirmed</option>
 							<option value="false">Not confirmed</option>
 						</select>
 					</td>
+					<td><input type="checkbox" name="visId" th:value="${visit.id}" th:field="*{idConf}" style="width:150px;"><br></td>    
+					<td><button type="submit" name="action" value="Reject" class="btn btn-warning text-white top-button" >Confirm</button></td>
 							</tr>
 						</tbody>
 
 					</table>
-						<button class="btn btn-warning text-white top-button">Confirm
-					</button>
+					
+					
 				</form>
+				
 				</div>
 			</div>
 		</div>
 
-
-
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="js/jquery-3.2.1.slim.min.js"></script>
 		<script src="js/bootstrap.bundle.min.js"></script>
 </body>

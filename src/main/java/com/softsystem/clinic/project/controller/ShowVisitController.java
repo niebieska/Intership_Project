@@ -1,5 +1,6 @@
 package com.softsystem.clinic.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,18 +66,52 @@ public class ShowVisitController {
 		return modelAndView;
 	}
 	
-	@PostMapping(value = "/showVisits")
+	@PostMapping(value = "/showVisits", params="action=Reject")
 	public ModelAndView showAllPatients(@ModelAttribute("model2") ConfirmViewModel model2) {
-	
 		
 		List<Visit> wizyty= visitRepository.findAllIncomingVisitsForAllPatients();
+	
 		
-		for(Visit visit : wizyty) {
+		for (Visit visit : wizyty) {
+			Visit findSingleVisitById = visitRepository.findSingleVisitById(model2.getIdConf());
+			findSingleVisitById.setVis_Confirmation(model2.isPat_Confirmation());
+			visit=findSingleVisitById;
+			visitRepository.save(visit);
+		}
+		
+//		List<Visit> findFewVisitsById = visitRepository.findFewVisitsById(model2.getIdConf());
+//		for (Visit visit : findFewVisitsById) {
+//			visit.setVis_Confirmation(model2.isPat_Confirmation());
+//			visitRepository.save(visit);
+//		}
+//		Visit findSingleVisitById = visitRepository.findSingleVisitById(model2.getIdConf());
+//		findSingleVisitById.setVis_Confirmation(model2.isPat_Confirmation());
+//		visitRepository.save(findSingleVisitById);
+		
+		//visitRepository.findSingleVisitById(model2.getId());
+		
+//		List<Visit> wizyty= visitRepository.findAllIncomingVisitsForAllPatients();
+//		for (Visit visit2 : wizyty) {
+//			model2.setId(visit2.getId());
+//		}
+//		List<ConfirmViewModel> confirm= new ArrayList<>();
+//		
+//		for (ConfirmViewModel confirmViewModel : confirm) {
+//			confirmViewModel=visitRepository.findSingleVisitById(model2.getId());
+//			visitRepository.saveAll((List<Visit>) confirmViewModel);
+//		}
+//	
+		
+		//Visit findSingleVisitById = visitRepository.findSingleVisitById(visitt.getId());
+		//System.out.println(findSingleVisitById);
+		//findSingleVisitById.setVis_Confirmation(model2.isPat_Confirmation());
+		//visitRepository.save(findSingleVisitById);
+		/*for(Visit visit : wizyty) {
 			System.out.println(visit);
 			visit.setVis_Confirmation(model2.isPat_Confirmation());
 			visitRepository.save(visit);
 			
-		}
+		}*/
 	
 		return new ModelAndView("redirect:/showVisits");
 	}
